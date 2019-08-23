@@ -44,7 +44,7 @@ class TestCaseList(tk.Frame):
     def addTestCase(self):
         # Now add some controls to the scrollframe.
         # NOTE: the child controls are added to the view port (scrollFrame.viewPort, NOT scrollframe itself)
-        self.cells.append(TestCaseCell(self.scrollFrame.viewPort, self.cell_count, 0))
+        self.cells.append(TestCaseCell(self.scrollFrame.viewPort, self.cell_count, 0, self.cell_count+1))
         self.cell_count += 1
 
     def delTestCase(self):
@@ -53,6 +53,8 @@ class TestCaseList(tk.Frame):
             cell_to_be_removed.destroy()
             self.cell_count -= 1
 
+    def getTestInAndOut(self):
+        return [self.cells[i].getTestDataAndType() for i in range(len(self.cells))]
 
 if __name__ == "__main__":
     root = tk.Tk()

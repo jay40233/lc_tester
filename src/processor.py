@@ -1,3 +1,6 @@
+import sys
+sys.path.append('../UI')
+
 from InputParser import InputParser
 from TypeEnum import DataType
 from AnswerCheck import AnswerChecker
@@ -13,13 +16,15 @@ class Processor(object):
         f.close()
 
     def setInputs(self, arg_list):
+        self.inputs_list = []
         for arg in arg_list:
             if not arg[1] or arg[1] == DataType.UNKNOWN:
                 continue
             self.inputs_list.append(InputParser.parseInput(arg[0],arg[1]))
         return self.inputs_list
 
-    def setOutputs(self, res):
+    def setOutput(self, res):
+        self.expected_res = None
         if not res[1] or res[1] == DataType.UNKNOWN:
             return self.expected_res
         self.expected_res = InputParser.parseInput(res[0], res[1])
@@ -53,5 +58,5 @@ if __name__ == '__main__':
 
     p = Processor(codeStr)
     print(p.setInputs(ins))
-    print(p.setOutputs(out))
+    print(p.setOutput(out))
     print(p.startTest())

@@ -157,7 +157,13 @@ class Toplevel1:
 
     def run(self):
         p = Processor(self.codeText.get('1.0', 'end'))
-        print(p.startText())
+        cases = self.test_list.getTestInAndOut()
+        results = []
+        for case in cases:
+            p.setInputs(case['input'])
+            p.setOutput(case['output'])
+            results.append(p.startTest())
+        print(results)
 
     def addTestCase(self):
         self.test_list.addTestCase()

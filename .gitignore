@@ -4,3 +4,4 @@ venv/
 *.bak*
 *.tcl
 *.output
+/UI/Solution.py
