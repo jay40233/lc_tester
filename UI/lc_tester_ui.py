@@ -11,6 +11,7 @@ sys.path.append('../src')
 from processor import Processor
 from TestCaseList import TestCaseList
 from TestResultList import TestResultList
+import time
 
 import PIL.Image
 import PIL.ImageTk
@@ -30,8 +31,9 @@ except ImportError:
 
 import lc_tester_ui_support
 
-def vp_start_gui():
+def main():
     '''Starting point when module is the main routine.'''
+    print('running')
     global val, w, root
     root = tk.Tk()
     top = Toplevel1 (root)
@@ -67,6 +69,7 @@ class Toplevel1:
 
         top.geometry("824x668+809+294")
         top.title("LC Reg Tester")
+        top.wm_iconbitmap('instapy_icon.ico')
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
@@ -189,7 +192,7 @@ class Toplevel1:
 
 
 if __name__ == '__main__':
-    vp_start_gui()
+    main()
 
 
 
