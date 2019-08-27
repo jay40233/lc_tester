@@ -10,6 +10,8 @@ sys.path.append('../src')
 
 from processor import Processor
 from TestCaseList import TestCaseList
+from TestResultList import TestResultList
+import time
 
 import PIL.Image
 import PIL.ImageTk
@@ -29,8 +31,9 @@ except ImportError:
 
 import lc_tester_ui_support
 
-def vp_start_gui():
+def main():
     '''Starting point when module is the main routine.'''
+    print('running')
     global val, w, root
     root = tk.Tk()
     top = Toplevel1 (root)
@@ -65,7 +68,8 @@ class Toplevel1:
             "roman -underline 0 -overstrike 0"
 
         top.geometry("824x668+809+294")
-        top.title("New Toplevel")
+        top.title("LC Reg Tester")
+        top.wm_iconbitmap('instapy_icon.ico')
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
@@ -155,7 +159,12 @@ class Toplevel1:
         self.delCaseBtn.configure(pady="0")
         self.delCaseBtn.configure(command=self.delTestCase)
 
+        self.resultListWindow = None
+        self.test_results_list = None
+
     def run(self):
+        if self.resultListWindow:
+            self.resultListWindow.destroy()
         p = Processor(self.codeText.get('1.0', 'end'))
         cases = self.test_list.getTestInAndOut()
         results = []
@@ -165,6 +174,16 @@ class Toplevel1:
             results.append(p.startTest())
         print(results)
 
+        # create result list in a new window
+        self.resultListWindow = tk.Tk()
+        self.resultListWindow.wm_title("Test Results")
+        self.test_results_list = TestResultList(self.resultListWindow)
+        self.test_results_list.pack(side="top", fill="both", expand=True)
+
+        for result in results:
+            self.test_results_list.addTestResult(result)
+        self.resultListWindow.mainloop()
+
     def addTestCase(self):
         self.test_list.addTestCase()
 
@@ -173,7 +192,7 @@ class Toplevel1:
 
 
 if __name__ == '__main__':
-    vp_start_gui()
+    main()
 
 
 

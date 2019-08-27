@@ -33,7 +33,7 @@ def destroy_window():
 
 if __name__ == '__main__':
     import lc_tester_ui
-    lc_tester_ui.vp_start_gui()
+    lc_tester_ui.main()
 
 
 

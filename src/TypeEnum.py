@@ -10,3 +10,10 @@ class DataType(Enum):
     FLOAT = 5
     TREE = 6
     LINKED_LIST = 7
+
+
+class ResultType(Enum):
+    ERROR = -1
+    PASSED = 0
+    FAILED = 1
+    SKIPPED = 2

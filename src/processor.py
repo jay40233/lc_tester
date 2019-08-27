@@ -3,6 +3,7 @@ sys.path.append('../UI')
 
 from InputParser import InputParser
 from TypeEnum import DataType
+from TypeEnum import ResultType
 from AnswerCheck import AnswerChecker
 
 class Processor(object):
