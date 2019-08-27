@@ -5,6 +5,7 @@ from InputParser import InputParser
 from TypeEnum import DataType
 from TypeEnum import ResultType
 from AnswerCheck import AnswerChecker
+import importlib
 
 class Processor(object):
     def __init__(self, codeStr, is_res_any_order = False):
@@ -33,8 +34,9 @@ class Processor(object):
         return self.expected_res
 
     def startTest(self):
-        from Solution import Solution
-        s = Solution()
+        import Solution
+        importlib.reload(Solution)
+        s = Solution.Solution()
 
         result = s.testFunc(*self.inputs_list)
         checker = AnswerChecker()

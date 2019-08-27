@@ -69,7 +69,7 @@ class Toplevel1:
 
         top.geometry("824x668+809+294")
         top.title("LC Reg Tester")
-        top.wm_iconbitmap('instapy_icon.ico')
+        #top.wm_iconbitmap('instapy_icon.ico')
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
@@ -160,10 +160,11 @@ class Toplevel1:
         self.delCaseBtn.configure(command=self.delTestCase)
 
         self.resultListWindow = None
+        self.isResultWindowActive = False
         self.test_results_list = None
 
     def run(self):
-        if self.resultListWindow:
+        if self.isResultWindowActive:
             self.resultListWindow.destroy()
         p = Processor(self.codeText.get('1.0', 'end'))
         cases = self.test_list.getTestInAndOut()
@@ -176,6 +177,8 @@ class Toplevel1:
 
         # create result list in a new window
         self.resultListWindow = tk.Tk()
+        self.resultListWindow.protocol("WM_DELETE_WINDOW", self.on_quit)
+        self.isResultWindowActive = True
         self.resultListWindow.wm_title("Test Results")
         self.test_results_list = TestResultList(self.resultListWindow)
         self.test_results_list.pack(side="top", fill="both", expand=True)
@@ -183,6 +186,10 @@ class Toplevel1:
         for result in results:
             self.test_results_list.addTestResult(result)
         self.resultListWindow.mainloop()
+
+    def on_quit(self):
+        self.isResultWindowActive = False
+        self.resultListWindow.destroy()
 
     def addTestCase(self):
         self.test_list.addTestCase()
